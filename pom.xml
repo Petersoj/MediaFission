@@ -10,12 +10,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.axet</groupId>
-            <artifactId>vget</artifactId>
-            <version>LATEST</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>LATEST</version>

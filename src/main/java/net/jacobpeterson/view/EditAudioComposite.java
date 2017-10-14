@@ -20,6 +20,8 @@ public class EditAudioComposite extends Composite {
     private Label albumArtLabel;
     private Canvas albumArtCanvas;
     private Button refreshAlbumArtButton;
+    private ProgressBar progressBar;
+    private Label progressLabel;
     private Button saveButton;
     private Image albumArtImage;
 
@@ -33,8 +35,10 @@ public class EditAudioComposite extends Composite {
         this.albumLabel = new Label(this, SWT.NONE);
         this.albumText = new Text(this, SWT.SINGLE | SWT.BORDER);
         this.albumArtLabel = new Label(this, SWT.NONE);
-        this.albumArtCanvas = new Canvas(this, SWT.NONE);
+        this.albumArtCanvas = new Canvas(this, SWT.BORDER);
         this.refreshAlbumArtButton = new Button(this, SWT.PUSH);
+        this.progressBar = new ProgressBar(this, SWT.SMOOTH | SWT.HORIZONTAL);
+        this.progressLabel = new Label(this, SWT.NONE);
         this.saveButton = new Button(this, SWT.PUSH);
     }
 
@@ -50,7 +54,7 @@ public class EditAudioComposite extends Composite {
         this.albumArtLabel.setText("Album Art");
 
         NSButton nsRefreshAlbumArtButton = (NSButton) refreshAlbumArtButton.view;
-        nsRefreshAlbumArtButton.cell().setControlSize(1); // NSControlSize.small
+        nsRefreshAlbumArtButton.cell().setControlSize(2); // NSControlSize.mini
         this.refreshAlbumArtButton.setText("Refresh");
 
         NSButton nsSaveButton = (NSButton) saveButton.view;
@@ -108,6 +112,16 @@ public class EditAudioComposite extends Composite {
         formData.top = new FormAttachment(albumText, 11, SWT.BOTTOM);
         formData.left = new FormAttachment(albumText, 0, SWT.LEFT);
         this.albumArtCanvas.setLayoutData(formData);
+
+        formData = new FormData();
+        formData.top = new FormAttachment(albumArtCanvas, 2, SWT.BOTTOM);
+        formData.left = new FormAttachment(albumArtCanvas, 0, SWT.CENTER);
+        this.refreshAlbumArtButton.setLayoutData(formData);
+
+        formData = new FormData();
+        formData.top = new FormAttachment(refreshAlbumArtButton, 0, SWT.CENTER);
+        formData.right = new FormAttachment(100);
+        this.saveButton.setLayoutData(formData);
 
         this.layout();
     }
