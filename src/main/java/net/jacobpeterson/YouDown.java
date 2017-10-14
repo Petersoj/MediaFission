@@ -1,17 +1,11 @@
 package net.jacobpeterson;
 
+import net.jacobpeterson.view.ShellContent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.dnd.*;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
@@ -19,14 +13,10 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Arrays;
 
 public class YouDown {
 
@@ -40,15 +30,19 @@ public class YouDown {
 
     public static void main(String[] args) {
 
-//        final Display display = new Display();
-//        Shell shell = new Shell(display);
-//        shell.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+
+
+        final Display display = new Display();
+        Shell shell = new Shell(display);
+        ShellContent shellContent = new ShellContent(shell);
+        shellContent.setup();
+//        shell.setLayout(new FillLayout(SWT.VERTICAL));
 //
 //        final Text text = new Text(shell, SWT.BORDER);
 //        text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
 //
 //        DropTarget dt = new DropTarget(text, DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK);
-//        dt.setTransfer(new Transfer[] { FileTransfer.getInstance() });
+//        dt.setTransfer(FileTransfer.getInstance());
 //        dt.addDropListener(new DropTargetAdapter() {
 //            public void drop(DropTargetEvent event) {
 //                String fileList[] = null;
@@ -60,14 +54,33 @@ public class YouDown {
 //            }
 //        });
 //
-//        shell.setSize(300, 100);
-//        shell.open();
-//
-//        while (!shell.isDisposed()) {
-//            if (!display.readAndDispatch())
-//                display.sleep();
+//        EditAudioComposite c = new EditAudioComposite(shell);
+//        c.setLayout(new FillLayout());
+//        for (int i = 0; i < 20; i++){
+//            Button butto = new Button(shell, SWT.PUSH);
+//            NSButton buttons = (NSButton) butto.view;
+//            buttons.cell().setControlSize(1); // NSControlSize.small
+//            butto.setText("asdf");
 //        }
-//        display.dispose();
+
+
+//        List list = new List(shell, SWT.SINGLE);
+//        list.add("asdfasdfadfs");
+//        list.add("asdfasdfadfs");
+//        list.add("asdfasdfadfs");
+//        list.add("asdfasdfadfs");
+//        list.add("asdfasdfadfs");
+
+
+        shell.open();
+
+        while (!shell.isDisposed()) {
+            if (!display.readAndDispatch())
+                display.sleep();
+        }
+        display.dispose();
+
+
 
 //        final Display display = new Display();
 //        final Shell shell = new Shell(display);
@@ -103,7 +116,41 @@ public class YouDown {
 //        }
 //        display.dispose();
 
-
+//        final Display display = new Display();
+//        Shell shell = new Shell(display);
+//        shell.setLayout(new FillLayout());
+//
+//        Table table = new Table(shell, SWT.VIRTUAL | SWT.BORDER_DASH);
+//        table.setLinesVisible(true);
+//        table.setHeaderVisible(true);
+//        String[] titles = { " ", "C", "!", "Description", "Resource",
+//                "In Folder", "Location" };
+//        for (int i = 0; i < titles.length; i++) {
+//            TableColumn column = new TableColumn(table, SWT.NONE);
+//            column.setText(titles[i]);
+//        }
+//        int count = 50;
+//        for (int i = 0; i < count; i++) {
+//            TableItem item = new TableItem(table, SWT.NONE);
+//            item.setText(0, "x");
+//            item.setText(1, "y");
+//            item.setText(2, "!");
+//            item.setText(3, "this stuff behaves the way I expect");
+//            item.setText(4, "almost everywhere");
+//            item.setText(5, "some.folder");
+//            item.setText(6, "line " + i + " in nowhere");
+//        }
+//        for (int i = 0; i < titles.length; i++) {
+//            table.getColumn(i).pack();
+//        }
+//        table.setSize(table.computeSize(SWT.DEFAULT, 200));
+//        shell.pack();
+//        shell.open();
+//        while (!shell.isDisposed()) {
+//            if (!display.readAndDispatch())
+//                display.sleep();
+//        }
+//        display.dispose();
 
 
 //        Display display = new Display();
@@ -124,8 +171,8 @@ public class YouDown {
             e.printStackTrace();
         }
         FormLayout layout = new FormLayout();
-        layout.marginWidth = 5;
-        layout.marginHeight = 5;
+        layout.marginWidth = 20;
+        layout.marginHeight = 20;
         shell.setLayout(layout);
         shell.setText("Dog Show Entry");
 
@@ -144,8 +191,8 @@ public class YouDown {
         dogBreed.setText("Breed:");
 
         dogBreedCombo = new Combo(shell, SWT.NONE);
-        dogBreedCombo.setItems(new String[]{"Collie", "Pitbull", "Poodle",
-                "Scottie", "Black Lab"});
+        dogBreedCombo.setItems("Collie", "Pitbull", "Poodle",
+                "Scottie", "Black Lab");
 
         Label photo = new Label(shell, SWT.NONE);
         photo.setText("Photo:");
@@ -161,11 +208,11 @@ public class YouDown {
         cats.setText("Categories");
         categories = new List(shell, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL
                 | SWT.H_SCROLL);
-        categories.setItems(new String[]{"Best of Breed", "Prettiest Female",
+        categories.setItems("Best of Breed", "Prettiest Female",
                 "Handsomest Male", "Best Dressed", "Fluffiest Ears",
                 "Most Colors", "Best Performer", "Loudest Bark",
                 "Best Behaved", "Prettiest Eyes", "Most Hair", "Longest Tail",
-                "Cutest Trick"});
+                "Cutest Trick");
 
         Button enter = new Button(shell, SWT.PUSH);
         enter.setText("Enter");
@@ -192,11 +239,9 @@ public class YouDown {
         data.right = new FormAttachment(categories, -5);
         data.bottom = new FormAttachment(ownerInfo, -5);
         dogPhoto.setLayoutData(data);
-        dogPhoto.addPaintListener(new PaintListener() {
-            public void paintControl(final PaintEvent event) {
-                if (dogImage != null) {
-                    event.gc.drawImage(dogImage, 0, 0);
-                }
+        dogPhoto.addPaintListener(event -> {
+            if (dogImage != null) {
+                event.gc.drawImage(dogImage, 0, 0);
             }
         });
         data = new FormData();
@@ -205,6 +250,7 @@ public class YouDown {
         data = new FormData();
         data.top = new FormAttachment(photo, 5);
         data.right = new FormAttachment(dogPhoto, -5);
+        data.bottom = new FormAttachment(browse, 15);
         browse.setLayoutData(data);
         browse.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent event) {
@@ -254,8 +300,8 @@ public class YouDown {
                 System.out.println("Owner Phone: " + phoneText.getText());
                 System.out.println("Categories:");
                 String cats[] = categories.getSelection();
-                for (int i = 0; i < cats.length; i++) {
-                    System.out.println("\t" + cats[i]);
+                for (String cat : cats) {
+                    System.out.println("\t" + cat);
                 }
             }
         });
