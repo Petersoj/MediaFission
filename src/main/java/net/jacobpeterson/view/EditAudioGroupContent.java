@@ -1,15 +1,22 @@
 package net.jacobpeterson.view;
 
+import net.jacobpeterson.download.Download;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.internal.cocoa.NSButton;
+import org.eclipse.swt.internal.cocoa.NSImage;
+import org.eclipse.swt.internal.cocoa.NSSize;
 import org.eclipse.swt.internal.cocoa.NSString;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.*;
 
-public class EditAudioComposite extends Composite {
+public class EditAudioGroupContent {
+
+    private Group groupContainer;
+
+    private Download shownDownload;
 
     private Label titleLabel;
     private Text titleText;
@@ -25,21 +32,21 @@ public class EditAudioComposite extends Composite {
     private Button saveButton;
     private Image albumArtImage;
 
-    public EditAudioComposite(Composite composite) {
-        super(composite, SWT.NONE);
+    public EditAudioGroupContent(Group groupContainer) {
+        this.groupContainer = groupContainer;
 
-        this.titleLabel = new Label(this, SWT.NONE);
-        this.titleText = new Text(this, SWT.SINGLE | SWT.BORDER);
-        this.artistLabel = new Label(this, SWT.NONE);
-        this.artistText = new Text(this, SWT.SINGLE | SWT.BORDER);
-        this.albumLabel = new Label(this, SWT.NONE);
-        this.albumText = new Text(this, SWT.SINGLE | SWT.BORDER);
-        this.albumArtLabel = new Label(this, SWT.NONE);
-        this.albumArtCanvas = new Canvas(this, SWT.BORDER);
-        this.refreshAlbumArtButton = new Button(this, SWT.PUSH);
-        this.progressBar = new ProgressBar(this, SWT.SMOOTH | SWT.HORIZONTAL);
-        this.progressLabel = new Label(this, SWT.NONE);
-        this.saveButton = new Button(this, SWT.PUSH);
+        this.titleLabel = new Label(groupContainer, SWT.NONE);
+        this.titleText = new Text(groupContainer, SWT.SINGLE | SWT.BORDER);
+        this.artistLabel = new Label(groupContainer, SWT.NONE);
+        this.artistText = new Text(groupContainer, SWT.SINGLE | SWT.BORDER);
+        this.albumLabel = new Label(groupContainer, SWT.NONE);
+        this.albumText = new Text(groupContainer, SWT.SINGLE | SWT.BORDER);
+        this.albumArtLabel = new Label(groupContainer, SWT.NONE);
+        this.albumArtCanvas = new Canvas(groupContainer, SWT.BORDER);
+        this.refreshAlbumArtButton = new Button(groupContainer, SWT.PUSH);
+        this.progressBar = new ProgressBar(groupContainer, SWT.SMOOTH | SWT.HORIZONTAL);
+        this.progressLabel = new Label(groupContainer, SWT.NONE);
+        this.saveButton = new Button(groupContainer, SWT.FLAT);
     }
 
     public void setup() {
@@ -58,8 +65,13 @@ public class EditAudioComposite extends Composite {
         this.refreshAlbumArtButton.setText("Refresh");
 
         NSButton nsSaveButton = (NSButton) saveButton.view;
-        nsSaveButton.setKeyEquivalent(NSString.stringWith("\r"));
-        this.saveButton.setText("Save");
+        nsSaveButton.setBezelStyle(15);
+        NSImage image = NSImage.imageNamed(NSString.stringWith("NSStopProgressTemplate"));
+        NSSize size = new NSSize();
+        size.height = 8;
+        size.width = 8;
+        image.setSize(size);
+        nsSaveButton.setImage(image);
     }
 
     private void setupLayout() {
@@ -68,7 +80,7 @@ public class EditAudioComposite extends Composite {
         layout.marginBottom = 10;
         layout.marginLeft = 10;
         layout.marginRight = 10;
-        this.setLayout(layout);
+        this.groupContainer.setLayout(layout);
 
         FormData formData = new FormData();
         formData.top = new FormAttachment(titleText, 0, SWT.CENTER);
@@ -123,7 +135,6 @@ public class EditAudioComposite extends Composite {
         formData.right = new FormAttachment(100);
         this.saveButton.setLayoutData(formData);
 
-        this.layout();
+        this.groupContainer.layout();
     }
-
 }

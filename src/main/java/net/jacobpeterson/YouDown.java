@@ -2,17 +2,13 @@ package net.jacobpeterson;
 
 import net.jacobpeterson.view.ShellContent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.*;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.*;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Shell;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -31,11 +27,39 @@ public class YouDown {
     public static void main(String[] args) {
 
 
-
         final Display display = new Display();
         Shell shell = new Shell(display);
+
         ShellContent shellContent = new ShellContent(shell);
         shellContent.setup();
+
+        shell.open();
+
+//        Shell other = new Shell(shell, SWT.CLOSE | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
+//        other.setSize(200, 100);
+//        other.setLayout(new FillLayout());
+//
+//        Combo combo = new Combo(other, SWT.READ_ONLY);
+//        combo.add("Video");
+//        combo.add("  mp4");
+//        combo.add("  mov");
+//        combo.add("Audio");
+//        combo.add("  mp3");
+//        combo.add("  m4a");
+//        combo.add("  ogg");
+//
+//        other.setLocation(shell.getBounds().x + shellContent.getAudioButton().getBounds().x, shell.getBounds().y + shellContent.getAudioButton().getBounds().y);
+//        other.open();
+
+
+        while (!shell.isDisposed()) {
+            if (!display.readAndDispatch()) {
+                display.sleep();
+            }
+        }
+        display.dispose();
+
+
 //        shell.setLayout(new FillLayout(SWT.VERTICAL));
 //
 //        final Text text = new Text(shell, SWT.BORDER);
@@ -54,7 +78,7 @@ public class YouDown {
 //            }
 //        });
 //
-//        EditAudioComposite c = new EditAudioComposite(shell);
+//        EditAudioGroupContent c = new EditAudioGroupContent(shellContent);
 //        c.setLayout(new FillLayout());
 //        for (int i = 0; i < 20; i++){
 //            Button butto = new Button(shell, SWT.PUSH);
@@ -62,24 +86,38 @@ public class YouDown {
 //            buttons.cell().setControlSize(1); // NSControlSize.small
 //            butto.setText("asdf");
 //        }
-
-
+//
+//
 //        List list = new List(shell, SWT.SINGLE);
 //        list.add("asdfasdfadfs");
 //        list.add("asdfasdfadfs");
 //        list.add("asdfasdfadfs");
 //        list.add("asdfasdfadfs");
 //        list.add("asdfasdfadfs");
+//
+//
+//        shell.open();
+//
+//
 
-
-        shell.open();
-
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch())
-                display.sleep();
-        }
-        display.dispose();
-
+//        Menu me = new Menu(button);
+//
+//        MenuItem item = new MenuItem(me, SWT.NONE);
+//        item.setText("asdf");
+//
+//        button.setMenu(me);
+//
+//
+//        button.add("asdf");
+//        button.add("asdf");
+//        button.add("asdf");
+//        button.add("asdf");
+//        button.add("asdf");
+//        button.add("asdf");
+//        button.add("asdf");
+//        button.setListVisible(true);
+//        NSButton button1 = (NSButton) button.view;
+//        button1.setBezelStyle(9);
 
 
 //        final Display display = new Display();

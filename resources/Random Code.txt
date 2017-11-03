@@ -4,5 +4,7 @@
 To help combine audio and video:
 https://superuser.com/a/590210
 
-To get album art:
-https://stackoverflow.com/a/4501009
+To get/test album art:
+https://stackoverflow.com/a/4501009 - for test key
+https://www.last.fm/api/show/track.getInfo - for track info
+http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=%20&track=%20&format=json

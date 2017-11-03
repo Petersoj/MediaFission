@@ -16,8 +16,7 @@ public class ShellContent {
 
     private Text urlTextField;
     private Label downloadAsLabel;
-    private Button audioButton;
-    private Button videoButton;
+    private Combo downloadAsCombo;
     private Label downloadListLabel;
     private List downloadList;
     private Group downloadInfoGroup;
@@ -27,8 +26,7 @@ public class ShellContent {
 
         this.urlTextField = new Text(shell, SWT.SINGLE | SWT.BORDER);
         this.downloadAsLabel = new Label(shell, SWT.NONE);
-        this.audioButton = new Button(shell, SWT.PUSH);
-        this.videoButton = new Button(shell, SWT.PUSH);
+        this.downloadAsCombo = new Combo(shell, SWT.READ_ONLY);
         this.downloadListLabel = new Label(shell, SWT.NONE);
         this.downloadList = new List(shell, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
         this.downloadInfoGroup = new Group(shell, SWT.NONE);
@@ -39,15 +37,24 @@ public class ShellContent {
         this.setupWidgets();
         this.setupLayout();
 
-        EditAudioComposite composite = new EditAudioComposite(downloadInfoGroup);
+        // Test code below
+
+        EditAudioGroupContent composite = new EditAudioGroupContent(downloadInfoGroup);
         composite.setup();
         this.downloadInfoGroup.layout();
+
+
+        this.downloadList.add("saafdsdfasfdasfdasafdsdasfdfsaafdsdfasfdasfdasafdsdasfdf");
+        this.downloadList.add("saafdsdfasfdasfdasafdsdasfdfsaafdsdfasfdasfdasafdsdasfdf");
+        this.downloadList.add("saafdsdfasfdasfdasafdsdasfdfsaafdsdfasfdasfdasafdsdasfdf");
+        this.downloadList.add("saafdsdfasfdasfdasafdsdasfdfsaafdsdfasfdasfdasafdsdasfdf");
+        this.downloadList.add("saafdsdfasfdasfdasafdsdasfdfsaafdsdfasfdasfdasafdsdasfdf");
     }
 
     private void setupShell() {
         this.shell.setText("YouDown");
-        this.shell.setMinimumSize(550, 300);
-        this.shell.setSize(640, 400);
+        this.shell.setMinimumSize(500, 350);
+        this.shell.setSize(800, 500);
 
         Rectangle screenSize = shell.getDisplay().getPrimaryMonitor().getBounds();
         Rectangle shellBounds = shell.getBounds();
@@ -55,10 +62,8 @@ public class ShellContent {
     }
 
     private void setupWidgets() {
-        this.urlTextField.setMessage("Enter YouTube or Vimeo URL");
+        this.urlTextField.setMessage("Enter YouTube, Vimeo, or Soundcloud URL");
         this.downloadAsLabel.setText("Download as:");
-        this.audioButton.setText("Audio");
-        this.videoButton.setText("Video");
 
         this.downloadListLabel.setText("Downloads");
         FontData[] fontData = downloadListLabel.getFont().getFontData();
@@ -85,18 +90,14 @@ public class ShellContent {
 
         formData = new FormData();
         formData.top = new FormAttachment(urlTextField, 0, SWT.CENTER);
-        formData.right = new FormAttachment(audioButton, 0, SWT.LEFT);
+        formData.right = new FormAttachment(downloadAsCombo, 0, SWT.LEFT);
         this.downloadAsLabel.setLayoutData(formData);
 
         formData = new FormData();
         formData.top = new FormAttachment(urlTextField, 0, SWT.CENTER);
-        formData.right = new FormAttachment(videoButton, 0, SWT.LEFT);
-        this.audioButton.setLayoutData(formData);
-
-        formData = new FormData();
-        formData.top = new FormAttachment(urlTextField, 0, SWT.CENTER);
         formData.right = new FormAttachment(100);
-        this.videoButton.setLayoutData(formData);
+        formData.width = 150;
+        this.downloadAsCombo.setLayoutData(formData);
 
         formData = new FormData();
         formData.top = new FormAttachment(urlTextField, 16, SWT.BOTTOM);
@@ -120,4 +121,17 @@ public class ShellContent {
         this.shell.layout();
     }
 
+    public void setGroupContentVisible(boolean visible) {
+        for (Control control : downloadInfoGroup.getChildren()) {
+            control.setVisible(visible);
+        }
+    }
+
+    public void showVideoInfoGroupContent() {
+
+    }
+
+    public void showEditAudioGroupContent() {
+
+    }
 }
