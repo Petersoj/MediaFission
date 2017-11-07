@@ -26,7 +26,6 @@ public class EditAudioGroupContent {
     private Text albumText;
     private Label albumArtLabel;
     private Canvas albumArtCanvas;
-    private Button refreshAlbumArtButton;
     private ProgressBar progressBar;
     private Label progressLabel;
     private Button saveButton;
@@ -43,7 +42,6 @@ public class EditAudioGroupContent {
         this.albumText = new Text(groupContainer, SWT.SINGLE | SWT.BORDER);
         this.albumArtLabel = new Label(groupContainer, SWT.NONE);
         this.albumArtCanvas = new Canvas(groupContainer, SWT.BORDER);
-        this.refreshAlbumArtButton = new Button(groupContainer, SWT.PUSH);
         this.progressBar = new ProgressBar(groupContainer, SWT.SMOOTH | SWT.HORIZONTAL);
         this.progressLabel = new Label(groupContainer, SWT.NONE);
         this.saveButton = new Button(groupContainer, SWT.FLAT);
@@ -59,10 +57,6 @@ public class EditAudioGroupContent {
         this.artistLabel.setText("Artist");
         this.albumLabel.setText("Album");
         this.albumArtLabel.setText("Album Art");
-
-        NSButton nsRefreshAlbumArtButton = (NSButton) refreshAlbumArtButton.view;
-        nsRefreshAlbumArtButton.cell().setControlSize(2); // NSControlSize.mini
-        this.refreshAlbumArtButton.setText("Refresh");
 
         NSButton nsSaveButton = (NSButton) saveButton.view;
         nsSaveButton.setBezelStyle(15);
@@ -126,12 +120,7 @@ public class EditAudioGroupContent {
         this.albumArtCanvas.setLayoutData(formData);
 
         formData = new FormData();
-        formData.top = new FormAttachment(albumArtCanvas, 2, SWT.BOTTOM);
-        formData.left = new FormAttachment(albumArtCanvas, 0, SWT.CENTER);
-        this.refreshAlbumArtButton.setLayoutData(formData);
-
-        formData = new FormData();
-        formData.top = new FormAttachment(refreshAlbumArtButton, 0, SWT.CENTER);
+        formData.top = new FormAttachment(40);
         formData.right = new FormAttachment(100);
         this.saveButton.setLayoutData(formData);
 

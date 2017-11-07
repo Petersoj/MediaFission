@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.jacobpeterson</groupId>
-    <artifactId>YouDown</artifactId>
+    <artifactId>MediaFission</artifactId>
     <version>0.1</version>
 
     <dependencies>

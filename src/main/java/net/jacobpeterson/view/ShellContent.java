@@ -1,6 +1,7 @@
 package net.jacobpeterson.view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.*;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Rectangle;
@@ -9,6 +10,8 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.*;
+
+import java.util.Arrays;
 
 public class ShellContent {
 
@@ -39,6 +42,19 @@ public class ShellContent {
 
         // Test code below
 
+        DropTarget dt = new DropTarget(downloadInfoGroup, DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK);
+        dt.setTransfer(FileTransfer.getInstance());
+        dt.addDropListener(new DropTargetAdapter() {
+            public void drop(DropTargetEvent event) {
+                String fileList[] = null;
+                FileTransfer ft = FileTransfer.getInstance();
+                if (ft.isSupportedType(event.currentDataType)) {
+                    fileList = (String[]) event.data;
+                }
+                System.out.println(Arrays.toString(fileList));
+            }
+        });
+
         EditAudioGroupContent composite = new EditAudioGroupContent(downloadInfoGroup);
         composite.setup();
         this.downloadInfoGroup.layout();
@@ -52,7 +68,7 @@ public class ShellContent {
     }
 
     private void setupShell() {
-        this.shell.setText("YouDown");
+        this.shell.setText("MediaFission");
         this.shell.setMinimumSize(500, 350);
         this.shell.setSize(800, 500);
 

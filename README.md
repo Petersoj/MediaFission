@@ -1,2 +1,2 @@
-# YouDown? Cause I am.
-YouDown (**You**Tube **Down**loader) is one legit piece of software. It's intuitive, elegant, and functional. Simply enter in a Youtube or Vimeo URL and hit the download audio or video button! You can also edit certain metadata for MP3 files.
+# MediaFission
+MediaFission is a Youtube and Soundcloud audio or video downloader. It's intuitive, elegant, and functional. It allows you to edit audio metadata too.

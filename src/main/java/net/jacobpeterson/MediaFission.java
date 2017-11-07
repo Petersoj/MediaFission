@@ -1,5 +1,6 @@
 package net.jacobpeterson;
 
+import net.jacobpeterson.controller.ShellController;
 import net.jacobpeterson.view.ShellContent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -14,7 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class YouDown {
+public class MediaFission {
 
     Image dogImage;
     Text dogNameText;
@@ -23,6 +24,28 @@ public class YouDown {
     List categories;
     Text nameText;
     Text phoneText;
+
+    private Display display;
+    private Shell shell;
+
+    private ShellController shellController;
+
+    public MediaFission() {
+
+    }
+
+    public void start() {
+        // setup contents
+        // open main shell
+        // Start GUI loop  - below
+
+//        while (!shell.isDisposed()) {
+//            if (!display.readAndDispatch()) {
+//                display.sleep();
+//            }
+//        }
+//        display.dispose();
+    }
 
     public static void main(String[] args) {
 
@@ -86,6 +109,9 @@ public class YouDown {
 //            buttons.cell().setControlSize(1); // NSControlSize.small
 //            butto.setText("asdf");
 //        }
+//        NSButton nsRefreshAlbumArtButton = (NSButton) refreshAlbumArtButton.view;
+//        nsRefreshAlbumArtButton.cell().setControlSize(2); // NSControlSize.mini
+//        this.refreshAlbumArtButton.setText("Refresh");
 //
 //
 //        List list = new List(shell, SWT.SINGLE);
@@ -192,7 +218,7 @@ public class YouDown {
 
 
 //        Display display = new Display();
-//        Shell shell = new YouDown().createShell(display);
+//        Shell shell = new MediaFission().createShell(display);
 //        shell.open();
 //        while (!shell.isDisposed()) {
 //            if (!display.readAndDispatch())
