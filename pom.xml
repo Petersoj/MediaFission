@@ -16,13 +16,13 @@
         </dependency>
 
         <!--Local dependency cause SWT doesn't have a maven repo-->
-        <!--For help - https://stackoverflow.com/a/23217825-->
+        <!--For Help: -->
+        <!--adding to local maven repo: https://stackoverflow.com/questions/30347310/adding-a-system-dependency-to-maven-->
+        <!--for using system local jar - https://stackoverflow.com/a/23217825-->
         <dependency>
-            <groupId>org.eclipse</groupId>
-            <artifactId>swt</artifactId>
+            <groupId>org.eclipse.swt</groupId>
+            <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
             <version>4.7.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/swt-4.7.1-cocoa-macosx-x86_64.jar</systemPath>
         </dependency>
     </dependencies>
 

@@ -1,11 +1,15 @@
 package net.jacobpeterson;
 
-import net.jacobpeterson.controller.ShellController;
-import net.jacobpeterson.view.ShellContent;
+import net.jacobpeterson.controller.ApplicationShellController;
+import net.jacobpeterson.view.ApplicationShell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -28,10 +32,10 @@ public class MediaFission {
     private Display display;
     private Shell shell;
 
-    private ShellController shellController;
+    private ApplicationShellController shellController;
 
     public MediaFission() {
-
+//        new Button()
     }
 
     public void start() {
@@ -48,20 +52,126 @@ public class MediaFission {
     }
 
     public static void main(String[] args) {
-
-
-        final Display display = new Display();
-        Shell shell = new Shell(display);
-
-        ShellContent shellContent = new ShellContent(shell);
+        ApplicationShell shellContent = new ApplicationShell();
         shellContent.setup();
+        shellContent.startUILoop(); // Blocks until main shell is disposed, then program exits.
 
-        shell.open();
+
+
+//      canvas scroll bar listener
+//
+//        Display display = new Display();
+//        Shell shell = new Shell(display);
+//        shell.setLayout(new FillLayout());
+//        Image originalImage = null;
+//        FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+//        dialog.setText("Open an image file or cancel");
+//        String string = dialog.open();
+//        if (string != null) {
+//            originalImage = new Image(display, string);
+//        }
+//        if (originalImage == null) {
+//            int width = 150, height = 200;
+//            originalImage = new Image(display, width, height);
+//            GC gc = new GC(originalImage);
+//            gc.fillRectangle(0, 0, width, height);
+//            gc.drawLine(0, 0, width, height);
+//            gc.drawLine(0, height, width, 0);
+//            gc.drawText("Default Image", 10, 10);
+//            gc.dispose();
+//        }
+//        final Image image = originalImage;
+//        final Point origin = new Point(0, 0);
+//        final Canvas canvas = new Canvas(shell, SWT.NO_BACKGROUND |
+//                SWT.NO_REDRAW_RESIZE | SWT.V_SCROLL | SWT.H_SCROLL);
+//        final ScrollBar hBar = canvas.getHorizontalBar();
+//        hBar.addListener(SWT.Selection, e -> {
+//            int hSelection = hBar.getSelection();
+//            int destX = -hSelection - origin.x;
+//            Rectangle rect = image.getBounds();
+//            canvas.scroll(destX, 0, 0, 0, rect.width, rect.height, false);
+//            origin.x = -hSelection;
+//        });
+//        final ScrollBar vBar = canvas.getVerticalBar();
+//        vBar.addListener(SWT.Selection, e -> {
+//            int vSelection = vBar.getSelection();
+//            int destY = -vSelection - origin.y;
+//            Rectangle rect = image.getBounds();
+//            canvas.scroll(0, destY, 0, 0, rect.width, rect.height, false);
+//            origin.y = -vSelection;
+//        });
+//        canvas.addListener(SWT.Resize, e -> {
+//            Rectangle rect = image.getBounds();
+//            Rectangle client = canvas.getClientArea();
+//            hBar.setMaximum(rect.width);
+//            vBar.setMaximum(rect.height);
+//            hBar.setThumb(Math.min(rect.width, client.width));
+//            vBar.setThumb(Math.min(rect.height, client.height));
+//            int hPage = rect.width - client.width;
+//            int vPage = rect.height - client.height;
+//            int hSelection = hBar.getSelection();
+//            int vSelection = vBar.getSelection();
+//            if (hSelection >= hPage) {
+//                if (hPage <= 0) hSelection = 0;
+//                origin.x = -hSelection;
+//            }
+//            if (vSelection >= vPage) {
+//                if (vPage <= 0) vSelection = 0;
+//                origin.y = -vSelection;
+//            }
+//            canvas.redraw();
+//        });
+//        canvas.addListener(SWT.Paint, e -> {
+//            GC gc = e.gc;
+//            gc.drawImage(image, origin.x, origin.y);
+//            Rectangle rect = image.getBounds();
+//            Rectangle client = canvas.getClientArea();
+//            int marginWidth = client.width - rect.width;
+//            if (marginWidth > 0) {
+//                gc.fillRectangle(rect.width, 0, marginWidth, client.height);
+//            }
+//            int marginHeight = client.height - rect.height;
+//            if (marginHeight > 0) {
+//                gc.fillRectangle(0, rect.height, client.width, marginHeight);
+//            }
+//        });
+//        Rectangle rect = image.getBounds();
+//        shell.setSize(Math.max(200, rect.width - 100), Math.max(150, rect.height - 100));
+//        shell.open();
+//        while (!shell.isDisposed()) {
+//            if (!display.readAndDispatch()) display.sleep();
+//        }
+//        originalImage.dispose();
+//        display.dispose();
+
+
+//        FileDialog dialog = new FileDialog(shell, SWT.SHEET);
+//        dialog.open();
+
+//        Shell other = new Shell(shell, SWT.MODELESS);
+//        other.setSize(200, 100);
+//        other.setLocation(800, 500);
+//
+//        TabFolder tab = new TabFolder(other, SWT.TOP);
+//        TabItem item = new TabItem(tab, SWT.NONE);
+//        item.setText("asdf");
+//        TabItem item2 = new TabItem(tab, SWT.NONE);
+//        item2.setText("asd2f");
+//
+//        tab.addSelectionListener(new SelectionAdapter() {
+//            @Override
+//            public void widgetSelected(SelectionEvent selectionEvent) {
+//                System.out.println("asdffff");
+//            }
+//        });
+//
+//        other.setLayout(new FillLayout());
+//
+//        other.open();
 
 //        Shell other = new Shell(shell, SWT.CLOSE | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 //        other.setSize(200, 100);
 //        other.setLayout(new FillLayout());
-//
 //        Combo combo = new Combo(other, SWT.READ_ONLY);
 //        combo.add("Video");
 //        combo.add("  mp4");
@@ -73,14 +183,6 @@ public class MediaFission {
 //
 //        other.setLocation(shell.getBounds().x + shellContent.getAudioButton().getBounds().x, shell.getBounds().y + shellContent.getAudioButton().getBounds().y);
 //        other.open();
-
-
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep();
-            }
-        }
-        display.dispose();
 
 
 //        shell.setLayout(new FillLayout(SWT.VERTICAL));
@@ -101,7 +203,7 @@ public class MediaFission {
 //            }
 //        });
 //
-//        EditAudioGroupContent c = new EditAudioGroupContent(shellContent);
+//        EditSongGroupContent c = new EditSongGroupContent(shellContent);
 //        c.setLayout(new FillLayout());
 //        for (int i = 0; i < 20; i++){
 //            Button butto = new Button(shell, SWT.PUSH);

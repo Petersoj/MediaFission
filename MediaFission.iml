@@ -12,14 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.2" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: org.eclipse:swt:4.7.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/swt-4.7.1-cocoa-macosx-x86_64.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Maven: org.eclipse.swt:org.eclipse.swt.cocoa.macosx.x86_64:4.7.1" level="project" />
   </component>
 </module>

@@ -1,3 +1,8 @@
 Lib download links
 
 http://download.eclipse.org/eclipse/downloads/
+
+
+
+To install to local maven repo:
+https://stackoverflow.com/questions/30347310/adding-a-system-dependency-to-maven

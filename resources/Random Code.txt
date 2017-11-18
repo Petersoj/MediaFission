@@ -7,6 +7,14 @@ https://superuser.com/a/590210
 To get/test album art:
 https://stackoverflow.com/a/4501009 - for test key
 https://www.last.fm/api/show/track.getInfo - for track info
-http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=%20&track=%20&format=json
+http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=bc67636b1f06495cdee8b3dbcc49f477&artist= &track= &format=json
 
 https://www.codeproject.com/articles/36001/using-public-web-services-to-get-information-about
+
+
+Drawing centered text:
+http://www.java2s.com/Code/Java/SWT-JFace-Eclipse/DrawTextDemo.htm
+
+
+Example youtube-dl command:
+youtube-dl -v --no-playlist --dump-json --playlist-items 1 <url>
