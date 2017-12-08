@@ -1,65 +1,43 @@
 package net.jacobpeterson;
 
-import net.jacobpeterson.controller.ApplicationShellController;
-import net.jacobpeterson.view.ApplicationShell;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.*;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import net.jacobpeterson.controller.viewcontroller.ApplicationShellController;
+import net.jacobpeterson.controller.DownloadsController;
 
 public class MediaFission {
 
-    Image dogImage;
-    Text dogNameText;
-    Combo dogBreedCombo;
-    Canvas dogPhoto;
-    List categories;
-    Text nameText;
-    Text phoneText;
-
-    private Display display;
-    private Shell shell;
-
+    private DownloadsController downloadsController;
     private ApplicationShellController shellController;
 
     public MediaFission() {
-//        new Button()
+        this.downloadsController = new DownloadsController(this);
+        this.shellController = new ApplicationShellController(this);
+    }
+
+    public void setup() {
+        this.shellController.setup();
     }
 
     public void start() {
-        // setup contents
-        // open main shell
-        // Start GUI loop  - below
+        this.shellController.start();
+    }
 
-//        while (!shell.isDisposed()) {
-//            if (!display.readAndDispatch()) {
-//                display.sleep();
-//            }
-//        }
-//        display.dispose();
+    public ApplicationShellController getShellController() {
+        return shellController;
     }
 
     public static void main(String[] args) {
-        ApplicationShell shellContent = new ApplicationShell();
-        shellContent.setup();
-        shellContent.startUILoop(); // Blocks until main shell is disposed, then program exits.
+        MediaFission mediaFission = new MediaFission(); // Instantiates everything
+        mediaFission.setup(); // Configures everything
+        mediaFission.start(); // Open/shows/starts everything
+    }
 
 
+    // TONS OF TEST CODE BELOW WOW HOLY CRAP!
+    // Will be removed later!
 
-//      canvas scroll bar listener
-//
+    private static void callTempTestCode() {
+//              canvas scroll bar listener
+
 //        Display display = new Display();
 //        Shell shell = new Shell(display);
 //        shell.setLayout(new FillLayout());
@@ -203,7 +181,7 @@ public class MediaFission {
 //            }
 //        });
 //
-//        EditSongGroupContent c = new EditSongGroupContent(shellContent);
+//        EditSongComposite c = new EditSongComposite(shellContent);
 //        c.setLayout(new FillLayout());
 //        for (int i = 0; i < 20; i++){
 //            Button butto = new Button(shell, SWT.PUSH);
@@ -328,188 +306,198 @@ public class MediaFission {
 //        }
     }
 
-    public Shell createShell(final Display display) {
-        final Shell shell = new Shell(display);
-
-        try {
-            BufferedImage image = ImageIO.read(new File("/Users/Jacob/Documents/Websites/jacobpeterson.net NEW/favicon.png"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        FormLayout layout = new FormLayout();
-        layout.marginWidth = 20;
-        layout.marginHeight = 20;
-        shell.setLayout(layout);
-        shell.setText("Dog Show Entry");
-
-        Group ownerInfo = new Group(shell, SWT.NONE);
-        ownerInfo.setText("Owner Info");
-        FormLayout ownerLayout = new FormLayout();
-        ownerLayout.marginWidth = 50;
-        ownerLayout.marginHeight = 5;
-        ownerInfo.setLayout(ownerLayout);
-
-        Label dogName = new Label(shell, SWT.NONE);
-        dogName.setText("Dog's Name:");
-        dogNameText = new Text(shell, SWT.SINGLE | SWT.BORDER);
-
-        Label dogBreed = new Label(shell, SWT.NONE);
-        dogBreed.setText("Breed:");
-
-        dogBreedCombo = new Combo(shell, SWT.NONE);
-        dogBreedCombo.setItems("Collie", "Pitbull", "Poodle",
-                "Scottie", "Black Lab");
-
-        Label photo = new Label(shell, SWT.NONE);
-        photo.setText("Photo:");
-        dogPhoto = new Canvas(shell, SWT.BORDER);
-
-        Button browse = new Button(shell, SWT.PUSH);
-        browse.setText("Browse...");
-
-        Button delete = new Button(shell, SWT.PUSH);
-        delete.setText("Delete");
-
-        Label cats = new Label(shell, SWT.NONE);
-        cats.setText("Categories");
-        categories = new List(shell, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL
-                | SWT.H_SCROLL);
-        categories.setItems("Best of Breed", "Prettiest Female",
-                "Handsomest Male", "Best Dressed", "Fluffiest Ears",
-                "Most Colors", "Best Performer", "Loudest Bark",
-                "Best Behaved", "Prettiest Eyes", "Most Hair", "Longest Tail",
-                "Cutest Trick");
-
-        Button enter = new Button(shell, SWT.PUSH);
-        enter.setText("Enter");
-        FormData data = new FormData();
-        data.top = new FormAttachment(dogNameText, 0, SWT.CENTER);
-        dogName.setLayoutData(data);
-        data = new FormData();
-        data.left = new FormAttachment(dogName, 5);
-        data.right = new FormAttachment(100, 0);
-        dogNameText.setLayoutData(data);
-
-        data = new FormData();
-        data.top = new FormAttachment(dogBreedCombo, 0, SWT.CENTER);
-        dogBreed.setLayoutData(data);
-        data = new FormData();
-        data.top = new FormAttachment(dogNameText, 5);
-        data.left = new FormAttachment(dogNameText, 0, SWT.LEFT);
-        data.right = new FormAttachment(categories, -5);
-        dogBreedCombo.setLayoutData(data);
-
-        data = new FormData(80, 80);
-        data.top = new FormAttachment(dogBreedCombo, 5);
-        data.left = new FormAttachment(dogNameText, 0, SWT.LEFT);
-        data.right = new FormAttachment(categories, -5);
-        data.bottom = new FormAttachment(ownerInfo, -5);
-        dogPhoto.setLayoutData(data);
-        dogPhoto.addPaintListener(event -> {
-            if (dogImage != null) {
-                event.gc.drawImage(dogImage, 0, 0);
-            }
-        });
-        data = new FormData();
-        data.top = new FormAttachment(dogPhoto, 0, SWT.TOP);
-        photo.setLayoutData(data);
-        data = new FormData();
-        data.top = new FormAttachment(photo, 5);
-        data.right = new FormAttachment(dogPhoto, -5);
-        data.bottom = new FormAttachment(browse, 15);
-        browse.setLayoutData(data);
-        browse.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent event) {
-                String fileName = new FileDialog(shell).open();
-                if (fileName != null) {
-                    dogImage = new Image(display, fileName);
-                    dogPhoto.redraw();
-                }
-            }
-        });
-
-        data = new FormData();
-        data.left = new FormAttachment(browse, 0, SWT.LEFT);
-        data.top = new FormAttachment(browse, 5);
-        data.right = new FormAttachment(dogPhoto, -5);
-        delete.setLayoutData(data);
-        delete.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent event) {
-                if (dogImage != null) {
-                    dogImage.dispose();
-                    dogImage = null;
-                    dogPhoto.redraw();
-                }
-            }
-        });
-
-        data = new FormData(90, 140);
-        data.top = new FormAttachment(dogPhoto, 0, SWT.TOP);
-        data.right = new FormAttachment(100, 0);
-        data.bottom = new FormAttachment(enter, -5);
-        categories.setLayoutData(data);
-
-        data = new FormData();
-        data.bottom = new FormAttachment(categories, -5);
-        data.left = new FormAttachment(categories, 0, SWT.CENTER);
-        cats.setLayoutData(data);
-
-        data = new FormData();
-        data.right = new FormAttachment(100, 0);
-        data.bottom = new FormAttachment(100, 0);
-        enter.setLayoutData(data);
-        enter.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent event) {
-                System.out.println("\nDog Name: " + dogNameText.getText());
-                System.out.println("Dog Breed: " + dogBreedCombo.getText());
-                System.out.println("Owner Name: " + nameText.getText());
-                System.out.println("Owner Phone: " + phoneText.getText());
-                System.out.println("Categories:");
-                String cats[] = categories.getSelection();
-                for (String cat : cats) {
-                    System.out.println("\t" + cat);
-                }
-            }
-        });
-
-        data = new FormData();
-        data.bottom = new FormAttachment(enter, -225);
-        data.left = new FormAttachment(0, 0);
-        data.right = new FormAttachment(categories, -5);
-        ownerInfo.setLayoutData(data);
-
-        Label name = new Label(ownerInfo, SWT.NULL);
-        name.setText("Name:");
-
-        Label phone = new Label(ownerInfo, SWT.PUSH);
-        phone.setText("Phone:");
-
-        nameText = new Text(ownerInfo, SWT.SINGLE | SWT.BORDER);
-        phoneText = new Text(ownerInfo, SWT.SINGLE | SWT.BORDER);
-
-        data = new FormData();
-        data.top = new FormAttachment(nameText, 0, SWT.CENTER);
-        name.setLayoutData(data);
-
-        data = new FormData();
-        data.top = new FormAttachment(phoneText, 0, SWT.CENTER);
-        phone.setLayoutData(data);
-
-        data = new FormData();
-        data.left = new FormAttachment(phone, 5);
-        data.right = new FormAttachment(100, 0);
-        nameText.setLayoutData(data);
-
-        data = new FormData();
-        data.left = new FormAttachment(nameText, 0, SWT.LEFT);
-        data.right = new FormAttachment(100, 0);
-        data.top = new FormAttachment(55, 0);
-        phoneText.setLayoutData(data);
-
-        shell.setMinimumSize(200, 200);
-        shell.pack();
-
-        return shell;
-    }
-
+//
+//
+//    Image dogImage;
+//    Text dogNameText;
+//    Combo dogBreedCombo;
+//    Canvas dogPhoto;
+//    List categories;
+//    Text nameText;
+//    Text phoneText;
+//
+//
+//    public Shell createShell(final Display display) {
+//        final Shell shell = new Shell(display);
+//
+//        try {
+//            BufferedImage image = ImageIO.read(new File("/Users/Jacob/Documents/Websites/jacobpeterson.net NEW/favicon.png"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        FormLayout layout = new FormLayout();
+//        layout.marginWidth = 20;
+//        layout.marginHeight = 20;
+//        shell.setLayout(layout);
+//        shell.setText("Dog Show Entry");
+//
+//        Group ownerInfo = new Group(shell, SWT.NONE);
+//        ownerInfo.setText("Owner Info");
+//        FormLayout ownerLayout = new FormLayout();
+//        ownerLayout.marginWidth = 50;
+//        ownerLayout.marginHeight = 5;
+//        ownerInfo.setLayout(ownerLayout);
+//
+//        Label dogName = new Label(shell, SWT.NONE);
+//        dogName.setText("Dog's Name:");
+//        dogNameText = new Text(shell, SWT.SINGLE | SWT.BORDER);
+//
+//        Label dogBreed = new Label(shell, SWT.NONE);
+//        dogBreed.setText("Breed:");
+//
+//        dogBreedCombo = new Combo(shell, SWT.NONE);
+//        dogBreedCombo.setItems("Collie", "Pitbull", "Poodle",
+//                "Scottie", "Black Lab");
+//
+//        Label photo = new Label(shell, SWT.NONE);
+//        photo.setText("Photo:");
+//        dogPhoto = new Canvas(shell, SWT.BORDER);
+//
+//        Button browse = new Button(shell, SWT.PUSH);
+//        browse.setText("Browse...");
+//
+//        Button delete = new Button(shell, SWT.PUSH);
+//        delete.setText("Delete");
+//
+//        Label cats = new Label(shell, SWT.NONE);
+//        cats.setText("Categories");
+//        categories = new List(shell, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL
+//                | SWT.H_SCROLL);
+//        categories.setItems("Best of Breed", "Prettiest Female",
+//                "Handsomest Male", "Best Dressed", "Fluffiest Ears",
+//                "Most Colors", "Best Performer", "Loudest Bark",
+//                "Best Behaved", "Prettiest Eyes", "Most Hair", "Longest Tail",
+//                "Cutest Trick");
+//
+//        Button enter = new Button(shell, SWT.PUSH);
+//        enter.setText("Enter");
+//        FormData data = new FormData();
+//        data.top = new FormAttachment(dogNameText, 0, SWT.CENTER);
+//        dogName.setLayoutData(data);
+//        data = new FormData();
+//        data.left = new FormAttachment(dogName, 5);
+//        data.right = new FormAttachment(100, 0);
+//        dogNameText.setLayoutData(data);
+//
+//        data = new FormData();
+//        data.top = new FormAttachment(dogBreedCombo, 0, SWT.CENTER);
+//        dogBreed.setLayoutData(data);
+//        data = new FormData();
+//        data.top = new FormAttachment(dogNameText, 5);
+//        data.left = new FormAttachment(dogNameText, 0, SWT.LEFT);
+//        data.right = new FormAttachment(categories, -5);
+//        dogBreedCombo.setLayoutData(data);
+//
+//        data = new FormData(80, 80);
+//        data.top = new FormAttachment(dogBreedCombo, 5);
+//        data.left = new FormAttachment(dogNameText, 0, SWT.LEFT);
+//        data.right = new FormAttachment(categories, -5);
+//        data.bottom = new FormAttachment(ownerInfo, -5);
+//        dogPhoto.setLayoutData(data);
+//        dogPhoto.addPaintListener(event -> {
+//            if (dogImage != null) {
+//                event.gc.drawImage(dogImage, 0, 0);
+//            }
+//        });
+//        data = new FormData();
+//        data.top = new FormAttachment(dogPhoto, 0, SWT.TOP);
+//        photo.setLayoutData(data);
+//        data = new FormData();
+//        data.top = new FormAttachment(photo, 5);
+//        data.right = new FormAttachment(dogPhoto, -5);
+//        data.bottom = new FormAttachment(browse, 15);
+//        browse.setLayoutData(data);
+//        browse.addSelectionListener(new SelectionAdapter() {
+//            public void widgetSelected(SelectionEvent event) {
+//                String fileName = new FileDialog(shell).open();
+//                if (fileName != null) {
+//                    dogImage = new Image(display, fileName);
+//                    dogPhoto.redraw();
+//                }
+//            }
+//        });
+//
+//        data = new FormData();
+//        data.left = new FormAttachment(browse, 0, SWT.LEFT);
+//        data.top = new FormAttachment(browse, 5);
+//        data.right = new FormAttachment(dogPhoto, -5);
+//        delete.setLayoutData(data);
+//        delete.addSelectionListener(new SelectionAdapter() {
+//            public void widgetSelected(SelectionEvent event) {
+//                if (dogImage != null) {
+//                    dogImage.dispose();
+//                    dogImage = null;
+//                    dogPhoto.redraw();
+//                }
+//            }
+//        });
+//
+//        data = new FormData(90, 140);
+//        data.top = new FormAttachment(dogPhoto, 0, SWT.TOP);
+//        data.right = new FormAttachment(100, 0);
+//        data.bottom = new FormAttachment(enter, -5);
+//        categories.setLayoutData(data);
+//
+//        data = new FormData();
+//        data.bottom = new FormAttachment(categories, -5);
+//        data.left = new FormAttachment(categories, 0, SWT.CENTER);
+//        cats.setLayoutData(data);
+//
+//        data = new FormData();
+//        data.right = new FormAttachment(100, 0);
+//        data.bottom = new FormAttachment(100, 0);
+//        enter.setLayoutData(data);
+//        enter.addSelectionListener(new SelectionAdapter() {
+//            public void widgetSelected(SelectionEvent event) {
+//                System.out.println("\nDog Name: " + dogNameText.getText());
+//                System.out.println("Dog Breed: " + dogBreedCombo.getText());
+//                System.out.println("Owner Name: " + nameText.getText());
+//                System.out.println("Owner Phone: " + phoneText.getText());
+//                System.out.println("Categories:");
+//                String cats[] = categories.getSelection();
+//                for (String cat : cats) {
+//                    System.out.println("\t" + cat);
+//                }
+//            }
+//        });
+//
+//        data = new FormData();
+//        data.bottom = new FormAttachment(enter, -225);
+//        data.left = new FormAttachment(0, 0);
+//        data.right = new FormAttachment(categories, -5);
+//        ownerInfo.setLayoutData(data);
+//
+//        Label name = new Label(ownerInfo, SWT.NULL);
+//        name.setText("Name:");
+//
+//        Label phone = new Label(ownerInfo, SWT.PUSH);
+//        phone.setText("Phone:");
+//
+//        nameText = new Text(ownerInfo, SWT.SINGLE | SWT.BORDER);
+//        phoneText = new Text(ownerInfo, SWT.SINGLE | SWT.BORDER);
+//
+//        data = new FormData();
+//        data.top = new FormAttachment(nameText, 0, SWT.CENTER);
+//        name.setLayoutData(data);
+//
+//        data = new FormData();
+//        data.top = new FormAttachment(phoneText, 0, SWT.CENTER);
+//        phone.setLayoutData(data);
+//
+//        data = new FormData();
+//        data.left = new FormAttachment(phone, 5);
+//        data.right = new FormAttachment(100, 0);
+//        nameText.setLayoutData(data);
+//
+//        data = new FormData();
+//        data.left = new FormAttachment(nameText, 0, SWT.LEFT);
+//        data.right = new FormAttachment(100, 0);
+//        data.top = new FormAttachment(55, 0);
+//        phoneText.setLayoutData(data);
+//
+//        shell.setMinimumSize(200, 200);
+//        shell.pack();
+//
+//        return shell;
+//    }
 }

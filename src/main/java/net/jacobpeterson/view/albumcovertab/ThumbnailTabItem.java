@@ -1,4 +1,4 @@
-package net.jacobpeterson.view.albumcover.albumcovertab;
+package net.jacobpeterson.view.albumcovertab;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormAttachment;
@@ -33,7 +33,7 @@ public class ThumbnailTabItem {
     private void setupWidgets() {
         this.tabItem.setText("Thumbnail");
         this.tabItem.setControl(composite);
-        this.explanationLabel.setText("This will attempt to use the thumbnail from the given Soundcloud or Youtube link.");
+        this.explanationLabel.setText("This will attempt to use the thumbnail from the given media link.");
     }
 
     private void setupLayout() {

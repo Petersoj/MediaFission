@@ -2,12 +2,17 @@ package net.jacobpeterson.view.groupcontent;
 
 import org.eclipse.swt.widgets.Group;
 
-public class AudioInfoGroupContent {
+public class VideoInfoComposite {
 
     private Group groupContainer;
 
-    public AudioInfoGroupContent(Group groupContainer) {
+    public VideoInfoComposite(Group groupContainer) {
         this.groupContainer = groupContainer;
 
     }
+
+    public void setup() {
+
+    }
+
 }

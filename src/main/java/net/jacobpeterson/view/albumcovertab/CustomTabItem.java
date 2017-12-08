@@ -1,4 +1,4 @@
-package net.jacobpeterson.view.albumcover.albumcovertab;
+package net.jacobpeterson.view.albumcovertab;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;

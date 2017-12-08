@@ -1,4 +1,4 @@
-package net.jacobpeterson.view.groupcontent;
+package net.jacobpeterson.view.groupcontent.song;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;
@@ -6,19 +6,19 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Group;
 
 public class AlbumCoverCanvas implements PaintListener, MouseMoveListener, MouseWheelListener {
 
-    private Group groupContainer;
+    private Composite composite;
 
     private Canvas canvas;
     private Image albumCover;
 
-    public AlbumCoverCanvas(Group groupContainer) {
-        this.groupContainer = groupContainer;
-        this.canvas = new Canvas(groupContainer, SWT.BORDER);
+    public AlbumCoverCanvas(Composite composite) {
+        this.composite = composite;
+        this.canvas = new Canvas(composite, SWT.BORDER);
     }
 
     public void setup() {
@@ -55,7 +55,7 @@ public class AlbumCoverCanvas implements PaintListener, MouseMoveListener, Mouse
 
     public void setAlbumCoverImage(Image albumCover) {
         if (albumCover != null) {
-            this.canvas.setCursor(groupContainer.getDisplay().getSystemCursor(SWT.CURSOR_HAND)); // Lets user know they can drag the image around.
+            this.canvas.setCursor(composite.getDisplay().getSystemCursor(SWT.CURSOR_HAND)); // Lets user know they can drag the image around.
         } else {
             this.canvas.setCursor(null); // Reset cursor to normal
         }

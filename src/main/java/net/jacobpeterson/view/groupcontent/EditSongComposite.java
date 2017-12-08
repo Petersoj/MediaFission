@@ -1,5 +1,6 @@
 package net.jacobpeterson.view.groupcontent;
 
+import net.jacobpeterson.view.groupcontent.song.AlbumCoverCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -13,9 +14,9 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.*;
 
-public class EditSongGroupContent {
+public class EditSongComposite {
 
-    private Group groupContainer;
+    private Composite composite;
 
     private Label titleLabel;
     private Text titleText;
@@ -34,25 +35,25 @@ public class EditSongGroupContent {
     private Button cancelButton;
     private Button saveButton;
 
-    public EditSongGroupContent(Group groupContainer) {
-        this.groupContainer = groupContainer;
+    public EditSongComposite(Group groupContainer) {
+        this.composite = new Composite(groupContainer, SWT.NONE);
 
-        this.titleLabel = new Label(groupContainer, SWT.NONE);
-        this.titleText = new Text(groupContainer, SWT.SINGLE | SWT.BORDER);
-        this.artistLabel = new Label(groupContainer, SWT.NONE);
-        this.artistText = new Text(groupContainer, SWT.SINGLE | SWT.BORDER);
-        this.albumLabel = new Label(groupContainer, SWT.NONE);
-        this.albumText = new Text(groupContainer, SWT.SINGLE | SWT.BORDER);
-        this.genreLabel = new Label(groupContainer, SWT.NONE);
-        this.genreCombo = new Combo(groupContainer, SWT.SIMPLE);
-        this.albumCoverLabel = new Label(groupContainer, SWT.NONE);
-        this.albumCoverCanvas = new AlbumCoverCanvas(groupContainer);
-        this.albumCoverStatusLabel = new Label(groupContainer, SWT.CENTER | SWT.WRAP);
-        this.editAlbumCoverButton = new Button(groupContainer, SWT.FLAT);
-        this.progressBar = new ProgressBar(groupContainer, SWT.SMOOTH | SWT.HORIZONTAL);
-        this.progressLabel = new Label(groupContainer, SWT.NONE);
-        this.cancelButton = new Button(groupContainer, SWT.FLAT);
-        this.saveButton = new Button(groupContainer, SWT.PUSH);
+        this.titleLabel = new Label(composite, SWT.NONE);
+        this.titleText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+        this.artistLabel = new Label(composite, SWT.NONE);
+        this.artistText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+        this.albumLabel = new Label(composite, SWT.NONE);
+        this.albumText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+        this.genreLabel = new Label(composite, SWT.NONE);
+        this.genreCombo = new Combo(composite, SWT.SIMPLE);
+        this.albumCoverLabel = new Label(composite, SWT.NONE);
+        this.albumCoverCanvas = new AlbumCoverCanvas(composite);
+        this.albumCoverStatusLabel = new Label(composite, SWT.CENTER | SWT.WRAP);
+        this.editAlbumCoverButton = new Button(composite, SWT.FLAT);
+        this.progressBar = new ProgressBar(composite, SWT.SMOOTH | SWT.HORIZONTAL);
+        this.progressLabel = new Label(composite, SWT.NONE);
+        this.cancelButton = new Button(composite, SWT.FLAT);
+        this.saveButton = new Button(composite, SWT.PUSH);
     }
 
     public void setup() {
@@ -151,7 +152,7 @@ public class EditSongGroupContent {
 
         this.albumCoverLabel.setText("Album Cover");
         this.albumCoverStatusLabel.setText("\n\n"); // Reserve 2 lines for centering vertically in setLayout()
-        this.albumCoverStatusLabel.setForeground(new Color(groupContainer.getDisplay(), 255, 0, 0));
+        this.albumCoverStatusLabel.setForeground(new Color(composite.getDisplay(), 255, 0, 0));
         this.albumCoverStatusLabel.setVisible(false);
 
         this.editAlbumCoverButton.setText("Edit");
@@ -162,13 +163,13 @@ public class EditSongGroupContent {
         FontData albumFontData = editAlbumCoverButton.getFont().getFontData()[0];
         albumFontData.setHeight(11);
         albumFontData.setStyle(SWT.BOLD);
-        editAlbumCoverButton.setForeground(new Color(groupContainer.getDisplay(), 255, 255, 255));
-        editAlbumCoverButton.setFont(new Font(groupContainer.getDisplay(), albumFontData));
+        editAlbumCoverButton.setForeground(new Color(composite.getDisplay(), 255, 255, 255));
+        editAlbumCoverButton.setFont(new Font(composite.getDisplay(), albumFontData));
 
         this.progressLabel.setText("Status");
         FontData fontData = progressLabel.getFont().getFontData()[0];
         fontData.setHeight(11);
-        this.progressLabel.setFont(new Font(groupContainer.getDisplay(), fontData));
+        this.progressLabel.setFont(new Font(composite.getDisplay(), fontData));
 
         NSButton nsCancelButton = (NSButton) cancelButton.view;
         nsCancelButton.setBezelStyle(15); // Inline button bezel style
@@ -186,7 +187,7 @@ public class EditSongGroupContent {
         layout.marginBottom = 10;
         layout.marginLeft = 10;
         layout.marginRight = 10;
-        this.groupContainer.setLayout(layout);
+        this.composite.setLayout(layout);
 
         FormData formData = new FormData();
         formData.top = new FormAttachment(titleText, 0, SWT.CENTER);
@@ -283,11 +284,11 @@ public class EditSongGroupContent {
         formData.right = new FormAttachment(100);
         this.saveButton.setLayoutData(formData);
 
-        this.groupContainer.layout();
+        this.composite.layout();
     }
 
-    public Group getGroupContainer() {
-        return groupContainer;
+    public Composite getComposite() {
+        return composite;
     }
 
     public Label getTitleLabel() {

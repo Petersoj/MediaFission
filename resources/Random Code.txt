@@ -17,4 +17,8 @@ http://www.java2s.com/Code/Java/SWT-JFace-Eclipse/DrawTextDemo.htm
 
 
 Example youtube-dl command:
-youtube-dl -v --no-playlist --dump-json --playlist-items 1 <url>
+/Users/Jacob/Desktop/youtube-dl -v -f bestaudio --no-playlist --dump-json --playlist-items 1 <url>
+
+FFMPEG commands:
+/Users/Jacob/Desktop/ffmpeg -i <file> -vn -ab 128k -ar 44100 -y out.mp3 - http://bytefreaks.net/gnulinux/bash/ffmpeg-extract-audio-from-webm-to-mp3
+/Users/Jacob/Desktop/ffmpeg -i /Users/Jacob/input.mp3  -i album_cover.jpg -c copy -map 0 -map 1 -metadata title=" "  -metadata artist=" " -metadata album=" " -metadata album_artist=" " -metadata genre=" " -metadata:s:v title="Cover (front)" output.mp3
