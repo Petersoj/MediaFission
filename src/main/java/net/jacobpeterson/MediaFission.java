@@ -27,7 +27,7 @@ public class MediaFission {
 
 
     public static void main(String[] args) {
-        args = new String[]{"https://www.youtube.com/watch?v=hCBX28p-4JY"}; // Temporary REMOVE LATER
+        // args should be: java -jar MediaFission.jar --youtube-dl <path> --ffmpeg <path> --out <path> --url <url>
 
         // Temporary CommandLine version of MediaFission (No GUI)
         MediaFissionCommandLine mediaFissionCommandLine = new MediaFissionCommandLine(args);

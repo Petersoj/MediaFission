@@ -23,9 +23,9 @@ public class MediaFissionCommandLine {
 
     public MediaFissionCommandLine(String[] args) {
         this.args = args;
-        this.temporaryDataDirectory = new File(System.getProperty("user.home"), ".tempMediaFission/");
+        // Create random-named directory to allow for multiple MediaFission instances
+        this.temporaryDataDirectory = new File(System.getProperty("user.home"), ".tempMediaFission/" + String.valueOf(Math.random()).substring(5));
         this.mediaDataFile = new File(temporaryDataDirectory, "mediaData.json");
-        this.destinationDirectory = new File(System.getProperty("user.home"), "Downloads");
 
         this.songInfoURL = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=bc67636b1f06495cdee8b3dbcc49f477&format=json"; // + "&artist=<ARTIST>&track=<TRACK>"
 
@@ -52,11 +52,8 @@ public class MediaFissionCommandLine {
                 "World"
         };
 
-        String youtubeDLPath = "/Users/Jacob/Desktop/youtube-dl";
-        String ffmpegPath = "/Users/Jacob/Desktop/ffmpeg";
-
         this.youtubeDLJSONCommand = new String[]{
-                youtubeDLPath,
+                "<youtube-dl placeholder>",
                 "-f",
                 "bestaudio",
                 "--no-playlist",
@@ -66,7 +63,7 @@ public class MediaFissionCommandLine {
                 "<URL placeholder>"
         };
         this.youtubeDLCommand = new String[]{
-                youtubeDLPath,
+                "<youtube-dl placeholder>",
                 "-f",
                 "bestaudio",
                 "--no-playlist",
@@ -76,7 +73,7 @@ public class MediaFissionCommandLine {
                 "<json file placeholder>",
         };
         this.ffmpegConvertCommand = new String[]{
-                ffmpegPath,
+                "<ffmpeg placeholder>",
                 "-i",
                 "<file placeholder>",
                 "-i",
@@ -103,31 +100,51 @@ public class MediaFissionCommandLine {
         File finalMediaFile = this.applyMetadataAndCreateFinal(mediaFile, songMetadata);
         this.cleanUpAndMove(finalMediaFile);
 
-        System.out.println("Successfully downloaded: " + finalMediaFile);
+        System.out.println();
+        System.out.println("Successfully downloaded: " + finalMediaFile.getName());
+
     }
 
     private String setupEnvironmentAndGetURL() {
         // Create temporaryDataDirectory
-        if (!temporaryDataDirectory.exists() & !temporaryDataDirectory.mkdir()) {
+        if (!temporaryDataDirectory.exists() & !temporaryDataDirectory.mkdirs()) {
             throwError("Could not create temporaryDataDirectory!", false, true);
         }
 
-        // Check if args contains URL
-        if (args.length != 1) {
+        String returnURL = "";
+
+        // Check proper args -  java -jar MediaFission.jar --youtube-dl <path> --ffmpeg <path> --out <path> --url <url>
+        if (args.length != 8) {
             throwError("No URL in args! Use: command <url>", false, true);
         }
+        for (int index = 0; index < args.length; index++) {
+            String arg = args[index];
+            if (arg.equals("--youtube-dl")) {
+                this.youtubeDLJSONCommand[0] = args[index + 1];
+                this.youtubeDLCommand[0] = args[index + 1];
+            } else if (arg.equals("--ffmpeg")) {
+                this.ffmpegConvertCommand[0] = args[index + 1];
+            } else if (arg.equals("--out")) {
+                this.destinationDirectory = new File(args[index + 1]);
+            } else if (arg.equals("--url")) {
+                returnURL = args[index + 1];
+            }
+        }
 
-        // Check if youtube-dl and FFMPEG exist
+        // Check if youtube-dl, FFMPEG, and out directory exist
         if (!new File(youtubeDLJSONCommand[0]).exists()) {
             throwError("youtube-dl executable does not exist!", false, true);
         }
         if (!new File(ffmpegConvertCommand[0]).exists()) {
             throwError("ffmpeg executable does not exist!", false, true);
         }
+        if (!destinationDirectory.exists()) {
+            throwError("Out Directory does not exist!", false, true);
+        }
 
         System.out.println("Setup - Temporary data directory obtained and arguments are valid!");
 
-        return args[0];
+        return returnURL;
     }
 
     private JsonObject downloadJSONData(String url) {
@@ -391,8 +408,11 @@ public class MediaFissionCommandLine {
         }
         for (File file : dataFiles) {
             if (!file.delete()) {
-                throwError("Could not clean up file: " + file.getName(), false, true);
+                throwError("Could not clean up file: " + file.getName(), true, true);
             }
+        }
+        if (!temporaryDataDirectory.delete()) {
+            throwError("Could not clean up temporaryDataDirectory!", true, true);
         }
 
         System.out.println("Moved and cleaned - Successfully moved media and cleaned temp data directory!");
