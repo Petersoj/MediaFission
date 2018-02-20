@@ -302,7 +302,7 @@ public class MediaFissionCommandLine {
     }
 
     private File applyMetadataAndCreateFinal(File mediaFile, JsonObject songInfoJsonObject) {
-        System.out.println("Applying Metadata - attaching album art and other metadata using ffmpeg...");
+        System.out.println("Parsing Metadata - reading from JSON into objects...");
 
         File albumArtFile = null;
         String trackName = "\"\"";
@@ -361,6 +361,7 @@ public class MediaFissionCommandLine {
             } else {
                 throwError("No album art included!", false, true);
             }
+            System.out.println("Album art located at: " + albumArtFile.getAbsolutePath());
         }
 
 
@@ -375,6 +376,7 @@ public class MediaFissionCommandLine {
         this.replacePlaceholder(ffmpegConvertCommand, 19, genreName);
         this.replacePlaceholder(ffmpegConvertCommand, 22, finalMediaFile.getAbsolutePath());
 
+        System.out.println("FFMPEG - Converting and applying metadata...");
         try {
             Process ffmpegConvertProcess = this.createCommandProcess(ffmpegConvertCommand, temporaryDataDirectory);
             if (ffmpegConvertProcess == null) {
