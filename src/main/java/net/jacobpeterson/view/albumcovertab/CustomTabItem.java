@@ -20,6 +20,7 @@ public class CustomTabItem {
     private Label imageURLLabel;
     private Text imageURLText;
     private Label imageExplanationLabel;
+    private Button loadImageURLButton;
 
     public CustomTabItem(TabFolder tabFolder) {
         this.tabFolder = tabFolder;
@@ -33,6 +34,7 @@ public class CustomTabItem {
         this.imageURLLabel = new Label(composite, SWT.NONE);
         this.imageURLText = new Text(composite, SWT.SINGLE | SWT.BORDER);
         this.imageExplanationLabel = new Label(composite, SWT.WRAP | SWT.CENTER);
+        this.loadImageURLButton = new Button(composite, SWT.PUSH);
     }
 
     public void setup() {
@@ -50,6 +52,7 @@ public class CustomTabItem {
         this.orLabel.setText("OR");
 
         Color grayColor = new Color(tabFolder.getDisplay(), 127, 127, 127);
+
         this.fileExplanationLabel.setForeground(grayColor);
         this.orLabel.setBackground(new Color(tabFolder.getDisplay(), 223, 222, 223)); // Color of group container background.
 
@@ -58,6 +61,8 @@ public class CustomTabItem {
                 "This URL usually ends with a \'.jpg\' or \'.png\'");
 
         this.imageExplanationLabel.setForeground(grayColor);
+
+        this.loadImageURLButton.setText("Load Image URL");
     }
 
     private void setupLayout() {
@@ -107,7 +112,23 @@ public class CustomTabItem {
         formData.right = new FormAttachment(100);
         this.imageExplanationLabel.setLayoutData(formData);
 
+        formData = new FormData();
+        formData.top = new FormAttachment(imageExplanationLabel, 5, SWT.BOTTOM);
+        formData.right = new FormAttachment(100);
+        this.loadImageURLButton.setLayoutData(formData);
+
         this.composite.layout();
     }
 
+    public TabItem getTabItem() {
+        return tabItem;
+    }
+
+    public Button getChooseFileButton() {
+        return chooseFileButton;
+    }
+
+    public Text getImageURLText() {
+        return imageURLText;
+    }
 }

@@ -1,10 +1,9 @@
 package net.jacobpeterson.controller.viewcontroller;
 
 import net.jacobpeterson.MediaFission;
-import net.jacobpeterson.controller.viewcontroller.groupcontent.EditSongCompositeController;
 import net.jacobpeterson.view.ApplicationShell;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Event;
 
 public class ApplicationShellController {
@@ -12,17 +11,17 @@ public class ApplicationShellController {
     private MediaFission mediaFission;
 
     private ApplicationShell applicationShell;
-    private EditSongCompositeController editSongCompositeController;
 
     public ApplicationShellController(MediaFission mediaFission) {
         this.mediaFission = mediaFission;
 
-        this.applicationShell = new ApplicationShell();
-        this.editSongCompositeController = new EditSongCompositeController(this);
+        this.applicationShell = new ApplicationShell(mediaFission);
     }
 
     public void setup() {
         this.applicationShell.setup();
+
+
         this.addListeners();
     }
 
@@ -31,43 +30,41 @@ public class ApplicationShellController {
     }
 
     private void addListeners() {
-        this.applicationShell.getShell().addListener(SWT.Close, this::handleClose);
-        this.applicationShell.getDisplay().addListener(SWT.Close, this::handleClose);
-        this.applicationShell.getURLText().addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent keyEvent) {
-                handleURLTextKeyRelease(keyEvent);
-            }
-        });
-        this.applicationShell.getURLText().addModifyListener(this::handleURLTextModification);
-        this.applicationShell.getDownloadAsCombo().addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent selectionEvent) {
-                handleDownloadAsComboSelection(selectionEvent);
-            }
-        });
-        this.applicationShell.getDownloadList().addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent selectionEvent) {
-                handleDownloadListSelect(selectionEvent);
-            }
-        });
+//        this.applicationShell.getShell().addListener(SWT.Close, this::handleClose);
+//        this.applicationShell.getDisplay().addListener(SWT.Close, this::handleClose);
+//        this.applicationShell.getURLText().addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyReleased(KeyEvent keyEvent) {
+//                handleURLTextKeyRelease(keyEvent);
+//            }
+//        });
+//        //this.applicationShell.getURLText().addModifyListener(this::handleURLTextModification); maybe implement later for soundcloud links (remove video option)
+//        this.applicationShell.getDownloadAsCombo().addSelectionListener(new SelectionAdapter() {
+//            @Override
+//            public void widgetSelected(SelectionEvent selectionEvent) {
+//                handleDownloadAsComboSelection(selectionEvent);
+//            }
+//        });
+//        this.applicationShell.getDownloadList().addSelectionListener(new SelectionAdapter() {
+//            @Override
+//            public void widgetSelected(SelectionEvent selectionEvent) {
+//                handleDownloadListSelect(selectionEvent);
+//            }
+//        });
     }
 
     private void handleURLTextKeyRelease(KeyEvent keyEvent) {
-        System.out.println(keyEvent.character == 0x0D); // Return key char code
-    }
-
-    private void handleURLTextModification(ModifyEvent modifyEvent) {
-        System.out.println(applicationShell.getURLText().getText());
+        if (keyEvent.character == 0x0D) { // ASCII hex code for the Return key
+//            this.mediaFission.getDownloadsController().download(applicationShell.getURLText().getText());
+        }
     }
 
     private void handleDownloadAsComboSelection(SelectionEvent selectionEvent) {
-        System.out.println("asdf");
+//        this.mediaFission.getDownloadsController().download(applicationShell.getURLText().getText());
     }
 
     private void handleDownloadListSelect(SelectionEvent selectionEvent) {
-        System.out.println("asdf");
+
     }
 
     private void handleClose(Event event) {

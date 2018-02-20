@@ -20,5 +20,10 @@ Example youtube-dl command:
 /Users/Jacob/Desktop/youtube-dl -v -f bestaudio --no-playlist --dump-json --playlist-items 1 <url>
 
 FFMPEG commands:
-/Users/Jacob/Desktop/ffmpeg -i <file> -vn -ab 128k -ar 44100 -y out.mp3 - http://bytefreaks.net/gnulinux/bash/ffmpeg-extract-audio-from-webm-to-mp3
-/Users/Jacob/Desktop/ffmpeg -i /Users/Jacob/input.mp3  -i album_cover.jpg -c copy -map 0 -map 1 -metadata title=" "  -metadata artist=" " -metadata album=" " -metadata album_artist=" " -metadata genre=" " -metadata:s:v title="Cover (front)" output.mp3
+/Users/Jacob/Desktop/ffmpeg -i <file> -vn -aq 128k -ar 44100 -y out.mp3 - http://bytefreaks.net/gnulinux/bash/ffmpeg-extract-audio-from-webm-to-mp3
+/Users/Jacob/Desktop/ffmpeg -i /Users/Jacob/input.mp3  -i album_cover.jpg -c copy -map 0:0 -map 1:0 -metadata title=" "  -metadata artist=" " -metadata album=" " -metadata album_artist=" " -metadata genre=" " -metadata:s:v title="Cover (front)" output.mp3
+
+/Users/Jacob/Desktop/ffmpeg -i <input> -i <art> -y -map 0 -map 1 -metadata title=" " -metadata artist=" " -metadata album=" " -metadata album_artist=" " -metadata genre=" " -metadata:s:1 title="Cover (front)" <output>
+
+
+DESCRIPTION: Download Youtube, Soundcloud, and etc. as Audio, Video, or as a Song (album cover and other metadata)!

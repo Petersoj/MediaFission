@@ -1,4 +1,4 @@
-package net.jacobpeterson.view.groupcontent.song;
+package net.jacobpeterson.view.groupcomposite.song;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;

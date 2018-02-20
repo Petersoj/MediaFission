@@ -22,7 +22,16 @@
         <dependency>
             <groupId>org.eclipse.swt</groupId>
             <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
-            <version>4.7.1</version>
+            <version>4.7.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--Nice lib so I don't have to use FFMEPG using runtime exec methods-->
+        <dependency>
+            <groupId>com.mpatric</groupId>
+            <artifactId>mp3agic</artifactId>
+            <version>0.9.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

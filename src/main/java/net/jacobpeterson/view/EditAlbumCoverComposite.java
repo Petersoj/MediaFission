@@ -38,6 +38,7 @@ public class EditAlbumCoverComposite {
     public void setup() {
         this.setupWidgets();
         this.setupLayout();
+        this.setupListeners();
     }
 
     private void setupWidgets() {
@@ -52,12 +53,15 @@ public class EditAlbumCoverComposite {
     private void setupLayout() {
         // External Layout
 
+        ApplicationShellContents contents = applicationShell.getContents();
+
         FormData externalFormData = new FormData();
-        externalFormData.top = new FormAttachment(applicationShell.getDownloadList(), 0, SWT.TOP);
+        externalFormData.top = new FormAttachment(contents.getDownloadGroup(), 0, SWT.TOP);
         externalFormData.left = new FormAttachment(0);
         externalFormData.bottom = new FormAttachment(100);
-        externalFormData.right = new FormAttachment(applicationShell.getDownloadGroup(), 0, SWT.LEFT);
+        externalFormData.right = new FormAttachment(contents.getDownloadGroup(), 0, SWT.LEFT);
         this.composite.setLayoutData(externalFormData);
+        this.composite.moveAbove(contents.getDownloadList());
 
         // Internal Layout
 
@@ -84,7 +88,35 @@ public class EditAlbumCoverComposite {
         this.composite.layout();
     }
 
+    private void setupListeners() {
+
+    }
+
     public Composite getComposite() {
         return composite;
+    }
+
+    public TabFolder getTabFolder() {
+        return tabFolder;
+    }
+
+    public AlbumCoverTabItem getAlbumCoverTabItem() {
+        return albumCoverTabItem;
+    }
+
+    public ThumbnailTabItem getThumbnailTabItem() {
+        return thumbnailTabItem;
+    }
+
+    public CustomTabItem getCustomTabItem() {
+        return customTabItem;
+    }
+
+    public Button getRemoveButton() {
+        return removeButton;
+    }
+
+    public Button getDoneButton() {
+        return doneButton;
     }
 }

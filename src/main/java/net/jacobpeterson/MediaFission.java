@@ -1,34 +1,41 @@
 package net.jacobpeterson;
 
-import net.jacobpeterson.controller.viewcontroller.ApplicationShellController;
 import net.jacobpeterson.controller.DownloadsController;
+import net.jacobpeterson.view.ApplicationShell;
 
 public class MediaFission {
 
+    private ApplicationShell applicationShell;
     private DownloadsController downloadsController;
-    private ApplicationShellController shellController;
 
     public MediaFission() {
+        this.applicationShell = new ApplicationShell(this);
         this.downloadsController = new DownloadsController(this);
-        this.shellController = new ApplicationShellController(this);
     }
 
     public void setup() {
-        this.shellController.setup();
+        this.applicationShell.setup();
     }
 
     public void start() {
-        this.shellController.start();
+        this.applicationShell.start(); // Blocking method that opens the GUI
     }
 
-    public ApplicationShellController getShellController() {
-        return shellController;
+    public DownloadsController getDownloadsController() {
+        return downloadsController;
     }
+
 
     public static void main(String[] args) {
-        MediaFission mediaFission = new MediaFission(); // Instantiates everything
-        mediaFission.setup(); // Configures everything
-        mediaFission.start(); // Open/shows/starts everything
+        args = new String[]{"https://www.youtube.com/watch?v=hCBX28p-4JY"}; // Temporary REMOVE LATER
+
+        // Temporary CommandLine version of MediaFission (No GUI)
+        MediaFissionCommandLine mediaFissionCommandLine = new MediaFissionCommandLine(args);
+        mediaFissionCommandLine.execute();
+
+//        MediaFission mediaFission = new MediaFission(); // Instantiates everything
+//        mediaFission.setup(); // Configures everything
+//        mediaFission.start(); // Open/shows/starts everything
     }
 
 

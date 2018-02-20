@@ -107,4 +107,19 @@ public class AlbumCoverTabItem {
         this.composite.layout();
     }
 
+    public TabItem getTabItem() {
+        return tabItem;
+    }
+
+    public Text getActualTitleText() {
+        return actualTitleText;
+    }
+
+    public Text getActualArtistText() {
+        return actualArtistText;
+    }
+
+    public Button getRefreshButton() {
+        return refreshButton;
+    }
 }

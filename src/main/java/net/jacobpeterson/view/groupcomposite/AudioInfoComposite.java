@@ -1,4 +1,4 @@
-package net.jacobpeterson.view.groupcontent;
+package net.jacobpeterson.view.groupcomposite;
 
 import org.eclipse.swt.widgets.Group;
 

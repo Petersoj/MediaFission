@@ -1,6 +1,6 @@
-package net.jacobpeterson.view.groupcontent;
+package net.jacobpeterson.view.groupcomposite;
 
-import net.jacobpeterson.view.groupcontent.song.AlbumCoverCanvas;
+import net.jacobpeterson.view.groupcomposite.song.AlbumCoverCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -61,7 +61,6 @@ public class EditSongComposite {
         this.setupLayout();
 
         // Test code below
-
 
 //        this.editAlbumCoverButton.addSelectionListener(new SelectionAdapter() {
 //            @Override
@@ -182,6 +181,17 @@ public class EditSongComposite {
     }
 
     private void setupLayout() {
+        // External Layout
+
+        FormData externalFormData = new FormData();
+        externalFormData.top = new FormAttachment(0);
+        externalFormData.left = new FormAttachment(0);
+        externalFormData.bottom = new FormAttachment(100);
+        externalFormData.right = new FormAttachment(100);
+        this.composite.setLayoutData(externalFormData);
+
+        // Internal Layout
+
         FormLayout layout = new FormLayout();
         layout.marginTop = 10;
         layout.marginBottom = 10;
